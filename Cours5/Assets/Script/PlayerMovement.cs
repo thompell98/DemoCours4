@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
+    public enum Direction { North, South, West, East};
+    public Direction playerDirection = Direction.South;
+    Animator playerAnimator;
+
     [SerializeField] public float maxSpeed = 7;
     protected Vector2 targetVelocity;
     protected Rigidbody2D rigidBody2D;
@@ -20,7 +24,10 @@ public class PlayerMovement : MonoBehaviour {
         contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer));
         contactFilter.useLayerMask = true;
         rigidBody2D = GetComponent<Rigidbody2D>();
+        playerAnimator = GetComponent<Animator>();
     }
+
+
     void FixedUpdate() {
         Vector2 velocityX = new Vector2(); ;
         Vector2 velocityY = new Vector2(); ;
@@ -39,7 +46,36 @@ public class PlayerMovement : MonoBehaviour {
         Vector2 move = Vector2.zero;
         move.x = Input.GetAxis("Horizontal");
         move.y = Input.GetAxis("Vertical");
+        UpdateDirection(move.x, move.y);
         targetVelocity = move.normalized * maxSpeed;
+        UpdateSpeed(targetVelocity.magnitude);
+    }
+
+    private void UpdateSpeed(float speed)
+    {
+        playerAnimator.SetFloat("Speed", speed);
+    }
+
+    private void UpdateDirection(float movementX, float movementY)
+    {
+        if (movementY > 0)
+        {
+            playerDirection = Direction.North;
+        }
+        else if (movementY < 0)
+        {
+            playerDirection = Direction.South;
+        }
+        else if (movementX > 0)
+        {
+            playerDirection = Direction.East;
+        }
+        else if (movementX < 0)
+        {
+            playerDirection = Direction.West;
+        }
+        playerAnimator.SetFloat("Direction", (float)playerDirection);
+
     }
     void Movement(Vector2 move, bool yMovement) {
         float distance = move.magnitude;
