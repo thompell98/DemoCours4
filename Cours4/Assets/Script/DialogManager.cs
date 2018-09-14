@@ -49,6 +49,7 @@ public class DialogManager : MonoBehaviour {
             }
 
         }
+        ValideAxisInUse();
     }
 
     public void EndDialog()
@@ -73,7 +74,7 @@ public class DialogManager : MonoBehaviour {
 
     private void ValideAxisInUse()
     {
-        if (Input.GetAxis("Jumo") != 0)
+        if (Input.GetAxis("Jump") != 0)
         {
             actionAxisInUse = true;
         }

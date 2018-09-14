@@ -513,7 +513,8 @@ Prefab:
         type: 2}
       propertyPath: dialogPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1834104275306424, guid: 76ec6f39c9f3eb94286aaf16743542da,
+        type: 2}
     - target: {fileID: 114663131292818874, guid: eb85c5bdcb4e6954c9b29cd58b62c877,
         type: 2}
       propertyPath: mainCanvas
